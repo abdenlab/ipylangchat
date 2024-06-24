@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "ipylang"
 version = "0.0.1"
-dependencies = ["anywidget"]
+dependencies = ["anywidget", "langchain_core"]
 readme = "README.md"
 
 [project.optional-dependencies]
