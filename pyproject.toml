@@ -29,6 +29,9 @@ dev = [
     "langchain-text-splitters",
 ]
 
+[project.urls]
+Homepage = "https://github.com/abdenlab/ipylangchat"
+
 # automatically add the dev feature to the default env (e.g., hatch shell)
 [tool.hatch.envs.default]
 features = ["dev"]
