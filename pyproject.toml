@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ipylang"
+name = "ipylangchat"
 version = "0.0.1"
 dependencies = ["anywidget", "langchain_core"]
 readme = "README.md"

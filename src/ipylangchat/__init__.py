@@ -7,7 +7,7 @@ import traitlets
 from langchain_core.messages import AIMessage, HumanMessage
 
 try:
-    __version__ = importlib.metadata.version("ipylang")
+    __version__ = importlib.metadata.version("ipylangchat")
 except importlib.metadata.PackageNotFoundError:
     __version__ = "unknown"
 
