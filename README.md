@@ -4,24 +4,11 @@ A simple [anywidget](https://anywidget.dev) demo that lets you talk to a [LangCh
 
 See the [example](./example.ipynb) notebook.
 
-
 ## Installation
 
 ```sh
 pip install ipylangchat
 ```
-
-## Usage
-
-Right now, the widget accepts a chain with a prompt template takes in human input as `{input}` and keeps track of chat history through a `{chat_history}` message placeholder. See the langchain [docs](https://python.langchain.com/v0.2/docs/how_to/qa_chat_history_how_to/) and our [example](./example.ipynb) of a conversational RAG on the anywidget documentation.
-
-```python
-import ipylangchat
-
-ipylangchat.ChatUIWidget(chain)
-```
-
-![alt text](image.png)
 
 ## Development installation
 
@@ -37,3 +24,15 @@ pip install -e ".[dev]"
 Open `example.ipynb` in JupyterLab, VS Code, or your favorite editor
 to start developing. Changes made in `src/ipylangchat/static/` will be reflected
 in the notebook.
+
+## Usage
+
+Right now, the widget accepts a chain with a prompt template takes in human input as `{input}` and keeps track of chat history through a `{chat_history}` message placeholder. See the langchain [docs](https://python.langchain.com/v0.2/docs/how_to/qa_chat_history_how_to/) and our [example](./example.ipynb) of a conversational RAG on the anywidget documentation.
+
+```python
+import ipylangchat
+
+ipylangchat.ChatUIWidget(chain)
+```
+
+![Image of a ChatUIWidget](image.png)
