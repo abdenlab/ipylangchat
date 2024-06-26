@@ -17,7 +17,6 @@ class ChatUIWidget(anywidget.AnyWidget):
     _css = pathlib.Path(__file__).parent / "static" / "widget.css"
     user_msg = traitlets.Unicode(sync=True)
     ai_msg = traitlets.Unicode(sync=True)
-    ai_state = traitlets.Unicode(sync=True)
 
     def __init__(self, chain, **kwargs):
         super().__init__(**kwargs)
