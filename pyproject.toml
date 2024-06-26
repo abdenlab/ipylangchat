@@ -5,8 +5,18 @@ build-backend = "hatchling.build"
 [project]
 name = "ipylangchat"
 version = "0.0.1"
+description = "Serverless chat UI Jupyter widget for langchain conversational AIs"
+license = {text = "MIT"}
+authors = [
+  {name = "Nezar Abdennur", email = "nabdennur@gmail.com"},
+]
 dependencies = ["anywidget", "langchain_core"]
 readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 
 [project.optional-dependencies]
 dev = [
