@@ -13,7 +13,7 @@ pip install ipylangchat
 
 ## Usage
 
-Right now, it assumes you have a chain with a prompt takes human input as `{input}` and keeps track of chat history through a `{chat_history}` message placeholder. See the langchain [docs](https://python.langchain.com/v0.2/docs/how_to/qa_chat_history_how_to/) and our [example](./example.ipynb) of a conversational RAG on the anywidget documentation.
+Right now, the widget accepts a chain with a prompt template takes in human input as `{input}` and keeps track of chat history through a `{chat_history}` message placeholder. See the langchain [docs](https://python.langchain.com/v0.2/docs/how_to/qa_chat_history_how_to/) and our [example](./example.ipynb) of a conversational RAG on the anywidget documentation.
 
 ```python
 import ipylangchat
