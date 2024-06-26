@@ -9,7 +9,15 @@ dependencies = ["anywidget", "langchain_core"]
 readme = "README.md"
 
 [project.optional-dependencies]
-dev = ["watchfiles", "jupyterlab"]
+dev = [
+    "watchfiles", 
+    "jupyterlab", 
+    "langchain-chroma",
+    "langchain-community",
+    "langchain-huggingface",
+    "langchain-openai",
+    "langchain-text-splitters",
+]
 
 # automatically add the dev feature to the default env (e.g., hatch shell)
 [tool.hatch.envs.default]
