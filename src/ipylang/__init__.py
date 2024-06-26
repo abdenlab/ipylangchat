@@ -15,8 +15,9 @@ except importlib.metadata.PackageNotFoundError:
 class ChatUIWidget(anywidget.AnyWidget):
     _esm = pathlib.Path(__file__).parent / "static" / "widget.js"
     _css = pathlib.Path(__file__).parent / "static" / "widget.css"
-    human_msg = traitlets.Unicode(sync=True)
+    user_msg = traitlets.Unicode(sync=True)
     ai_msg = traitlets.Unicode(sync=True)
+    ai_state = traitlets.Unicode(sync=True)
 
     def __init__(self, chain, **kwargs):
         super().__init__(**kwargs)
@@ -27,14 +28,16 @@ class ChatUIWidget(anywidget.AnyWidget):
         def handle_user_question(change):
             self.chat_history.extend(
                 [
-                    HumanMessage(content=self.human_msg),
+                    HumanMessage(content=self.user_msg),
                     AIMessage(content=self.ai_msg),
                 ]
             )
-            result = chain.invoke({
-                "input": change.new,
-                "chat_history": self.chat_history
-            })
-            self.ai_msg = result["answer"]
+            self.send({ "type": "create" })
+            for chunk in chain.stream(
+                {"input": change.new, "chat_history": self.chat_history}
+            ):
+                if "answer" in chunk:
+                    self.send({"type": "append", "text": chunk["answer"]})
+            self.send({ "type": "finish" })
 
-        self.observe(handle_user_question, names=["human_msg"])
+        self.observe(handle_user_question, names=["user_msg"])

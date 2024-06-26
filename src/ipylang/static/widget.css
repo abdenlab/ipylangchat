@@ -37,3 +37,10 @@
 #send-btn:hover {
     background-color: #0056b3;
 }
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}

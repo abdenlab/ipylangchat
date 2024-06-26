@@ -1,4 +1,45 @@
-/** @typedef {{ value: number }} Model */
+class Message {
+	el = document.createElement("div");
+    sender = document.createElement("span");
+    content = document.createElement("span");
+    thinking = null;
+
+	constructor(sender, content = "") {
+		this.el.className = "message";
+        this.el.appendChild(this.sender);
+        this.sender.className = "message-sender";
+        this.el.appendChild(this.content);
+        this.content.className = "message-content";
+        
+        if (sender === "Assistant") {
+            setTimeout(() => {
+                this.sender.innerHTML = `<strong>${sender}:</strong> `;
+                let i = 0;
+                let think = () => {
+                    this.content.innerText = ".".repeat(i % 4);
+                    i += 1;
+                }; 
+                this.thinking = setInterval(think, 500);
+            }, 500);
+        } else {
+            this.sender.innerHTML = `<strong>${sender}:</strong> `;
+            if (content) {
+                this.content.innerText = content;
+            }
+        };
+	}
+
+	appendText(text) {
+        if (this.thinking) {
+            clearInterval(this.thinking);
+            this.thinking = null;
+            this.content.innerText = "";
+        }
+		this.content.innerText += text;
+	}
+}
+
+/** @typedef {{ user_msg: String, ai_msg: String }} Model */
 
 /** @type {import("npm:@anywidget/types").Render<Model>} */
 function render({ model, el }) {
@@ -26,35 +67,41 @@ function render({ model, el }) {
     sendButton.textContent = 'Send';
     inputContainer.appendChild(sendButton);
     
-    function sendMessage() {
-        const message = chatInput.value.trim();
-        if (message) {
-            appendMessage('User', message);
-            model.set("human_msg", message);
+    function sendUserMessage() {
+        const messageText = chatInput.value.trim();
+        if (messageText) {
+            const message = new Message("User", messageText);
+            chatBox.appendChild(message.el);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            model.set("user_msg", messageText);
             model.save_changes();
             chatInput.value = '';
         }
     }
-
-    function appendMessage(sender, message) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message');
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-        chatBox.appendChild(messageElement);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    sendButton.addEventListener('click', () => sendMessage());
+    sendButton.addEventListener('click', () => sendUserMessage());
     chatInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-            sendMessage();
+            sendUserMessage();
         }
     });
-    function on_ai_answer() {
-        let ai_message = model.get("ai_msg");
-        appendMessage('Assistant', ai_message);
-    }
-    model.on("change:ai_msg", on_ai_answer);
+
+    let current = null;
+    model.on("msg:custom", (msg) => {
+        if (msg.type == "create") {
+            current = new Message("Assistant");
+            chatBox.appendChild(current.el);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        if (msg.type == "append") {
+            current.appendText(msg.text);
+        }
+        if (msg.type == "finish") {
+            model.set("ai_msg", current.content.innerText);
+            model.save_changes();
+            current = null;
+        }
+    })
+
 }
 
 export default { render };
