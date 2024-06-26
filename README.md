@@ -1,6 +1,6 @@
 # ipylangchat
 
-A simple [anywidget](https://anywidget.dev) demo that lets you chat with a LangChain pipeline, such as a [conversational RAG](https://python.langchain.com/v0.2/docs/tutorials/rag/), directly in a Jupyter environment (Notebook, Lab, Google Colab, VSCode). No need to serve a web application.
+A simple [anywidget](https://anywidget.dev) demo that lets you talk to a [LangChain](https://www.langchain.com/) runnable or agent, such as a [conversational RAG](https://python.langchain.com/v0.2/docs/tutorials/rag/), directly in a Jupyter environment (Notebook, Lab, Google Colab, VSCode). No need to serve a web application.
 
 See the [example](./example.ipynb) notebook.
 
